@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "inovetix_contact_form_submissions",
+  "info": {
+    "singularName": "inovetix-contact-form-submission",
+    "pluralName": "inovetix-contact-form-submissions",
+    "displayName": "Inovetix_Contact_Form_Submission"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "fullname": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "companyWebsite": {
+      "type": "string"
+    },
+    "serviceType": {
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "type": "text"
+    },
+    "isContacted": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

@@ -677,6 +677,241 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiInovetixBlogInovetixBlog extends Schema.CollectionType {
+  collectionName: 'inovetix_blogs';
+  info: {
+    singularName: 'inovetix-blog';
+    pluralName: 'inovetix-blogs';
+    displayName: 'Inovetix_Blog';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    coverPhoto: Attribute.Media & Attribute.Required;
+    featuredPhoto: Attribute.Media & Attribute.Required;
+    description: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 100;
+        maxLength: 250;
+      }>;
+    content: Attribute.Blocks & Attribute.Required;
+    postContent: Attribute.RichText &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 2000;
+      }>;
+    category: Attribute.Relation<
+      'api::inovetix-blog.inovetix-blog',
+      'manyToOne',
+      'api::inovetix-blog-category.inovetix-blog-category'
+    >;
+    tags: Attribute.Relation<
+      'api::inovetix-blog.inovetix-blog',
+      'manyToMany',
+      'api::inovetix-blog-tag.inovetix-blog-tag'
+    >;
+    seo: Attribute.Component<'shared.seo'>;
+    author: Attribute.Relation<
+      'api::inovetix-blog.inovetix-blog',
+      'manyToOne',
+      'api::inovetix-blog-author.inovetix-blog-author'
+    >;
+    slug: Attribute.UID<'api::inovetix-blog.inovetix-blog', 'title'> &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::inovetix-blog.inovetix-blog',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::inovetix-blog.inovetix-blog',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiInovetixBlogAuthorInovetixBlogAuthor
+  extends Schema.CollectionType {
+  collectionName: 'inovetix_blog_authors';
+  info: {
+    singularName: 'inovetix-blog-author';
+    pluralName: 'inovetix-blog-authors';
+    displayName: 'Inovetix_Blog_Author';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    fullname: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    designation: Attribute.String;
+    avatar: Attribute.Media & Attribute.Required;
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    blogs: Attribute.Relation<
+      'api::inovetix-blog-author.inovetix-blog-author',
+      'oneToMany',
+      'api::inovetix-blog.inovetix-blog'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::inovetix-blog-author.inovetix-blog-author',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::inovetix-blog-author.inovetix-blog-author',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiInovetixBlogCategoryInovetixBlogCategory
+  extends Schema.CollectionType {
+  collectionName: 'inovetix_blog_categories';
+  info: {
+    singularName: 'inovetix-blog-category';
+    pluralName: 'inovetix-blog-categories';
+    displayName: 'Inovetix_Blog_Category';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    description: Attribute.Text;
+    blogs: Attribute.Relation<
+      'api::inovetix-blog-category.inovetix-blog-category',
+      'oneToMany',
+      'api::inovetix-blog.inovetix-blog'
+    >;
+    featuredPhoto: Attribute.Media & Attribute.Required;
+    slug: Attribute.UID<
+      'api::inovetix-blog-category.inovetix-blog-category',
+      'title'
+    > &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::inovetix-blog-category.inovetix-blog-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::inovetix-blog-category.inovetix-blog-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiInovetixBlogTagInovetixBlogTag
+  extends Schema.CollectionType {
+  collectionName: 'inovetix_blog_tags';
+  info: {
+    singularName: 'inovetix-blog-tag';
+    pluralName: 'inovetix-blog-tags';
+    displayName: 'Inovetix_Blog_Tag';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    description: Attribute.Text;
+    blogs: Attribute.Relation<
+      'api::inovetix-blog-tag.inovetix-blog-tag',
+      'manyToMany',
+      'api::inovetix-blog.inovetix-blog'
+    >;
+    slug: Attribute.UID<'api::inovetix-blog-tag.inovetix-blog-tag', 'title'> &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::inovetix-blog-tag.inovetix-blog-tag',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::inovetix-blog-tag.inovetix-blog-tag',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiInovetixContactFormSubmissionInovetixContactFormSubmission
+  extends Schema.CollectionType {
+  collectionName: 'inovetix_contact_form_submissions';
+  info: {
+    singularName: 'inovetix-contact-form-submission';
+    pluralName: 'inovetix-contact-form-submissions';
+    displayName: 'Inovetix_Contact_Form_Submission';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    fullname: Attribute.String & Attribute.Required;
+    phone: Attribute.String;
+    companyWebsite: Attribute.String;
+    serviceType: Attribute.String & Attribute.Required;
+    message: Attribute.Text;
+    isContacted: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::inovetix-contact-form-submission.inovetix-contact-form-submission',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::inovetix-contact-form-submission.inovetix-contact-form-submission',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -693,6 +928,11 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::inovetix-blog.inovetix-blog': ApiInovetixBlogInovetixBlog;
+      'api::inovetix-blog-author.inovetix-blog-author': ApiInovetixBlogAuthorInovetixBlogAuthor;
+      'api::inovetix-blog-category.inovetix-blog-category': ApiInovetixBlogCategoryInovetixBlogCategory;
+      'api::inovetix-blog-tag.inovetix-blog-tag': ApiInovetixBlogTagInovetixBlogTag;
+      'api::inovetix-contact-form-submission.inovetix-contact-form-submission': ApiInovetixContactFormSubmissionInovetixContactFormSubmission;
     }
   }
 }

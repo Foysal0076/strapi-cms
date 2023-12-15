@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "inovetix_blog_tags",
+  "info": {
+    "singularName": "inovetix-blog-tag",
+    "pluralName": "inovetix-blog-tags",
+    "displayName": "Inovetix_Blog_Tag",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 50
+    },
+    "description": {
+      "type": "text"
+    },
+    "blogs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::inovetix-blog.inovetix-blog",
+      "mappedBy": "tags"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    }
+  }
+}

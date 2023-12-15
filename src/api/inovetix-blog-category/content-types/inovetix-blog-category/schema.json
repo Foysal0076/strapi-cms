@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "inovetix_blog_categories",
+  "info": {
+    "singularName": "inovetix-blog-category",
+    "pluralName": "inovetix-blog-categories",
+    "displayName": "Inovetix_Blog_Category",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "blogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::inovetix-blog.inovetix-blog",
+      "mappedBy": "category"
+    },
+    "featuredPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    }
+  }
+}

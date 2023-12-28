@@ -43,11 +43,6 @@
       "type": "blocks",
       "required": true
     },
-    "postContent": {
-      "type": "richtext",
-      "required": true,
-      "minLength": 2000
-    },
     "category": {
       "type": "relation",
       "relation": "manyToOne",

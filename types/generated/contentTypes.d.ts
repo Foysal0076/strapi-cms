@@ -699,11 +699,6 @@ export interface ApiInovetixBlogInovetixBlog extends Schema.CollectionType {
         maxLength: 250;
       }>;
     content: Attribute.Blocks & Attribute.Required;
-    postContent: Attribute.RichText &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 2000;
-      }>;
     category: Attribute.Relation<
       'api::inovetix-blog.inovetix-blog',
       'manyToOne',
